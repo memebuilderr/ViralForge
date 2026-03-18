@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViralForge - Creator Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+
+body{
+background:radial-gradient(circle at top,#1e293b,#020617);
+color:white;
+min-height:100vh;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 24px;
+background:rgba(15,23,42,0.8);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.08);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:700;
+font-size:20px;
+}
+
+.logoBox{
+width:36px;
+height:36px;
+border-radius:10px;
+background:linear-gradient(135deg,#6366f1,#22c55e);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:20px;
+font-size:14px;
+opacity:0.9;
+}
+
+.hero{
+text-align:center;
+padding:70px 20px 40px;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:0.8;
+font-size:16px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(30,41,59,0.7);
+padding:20px;
+border-radius:16px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.06);
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 40px rgba(0,0,0,0.7);
+}
+
+h2{
+margin-bottom:10px;
+font-size:18px;
+}
+
+input{
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+margin-top:8px;
+background:#020617;
+color:white;
+}
+
+button{
+margin-top:10px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#6366f1,#22c55e);
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.result{
+margin-top:12px;
+padding:10px;
+border-radius:10px;
+background:#020617;
+font-size:14px;
+line-height:1.4;
+}
+
+.copyBtn{
+margin-top:6px;
+background:#22c55e;
+font-size:13px;
+}
+
+.memeBox{
+margin-top:10px;
+text-align:center;
+}
+
+.memeBox img{
+width:100%;
+border-radius:10px;
+margin-top:10px;
+}
+
+footer{
+margin-top:40px;
+text-align:center;
+padding:20px;
+font-size:13px;
+opacity:0.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+<div class="logoBox">V</div>
+ViralForge
+</div>
+
+<ul>
+<li>Tools</li>
+<li>Creators</li>
+<li>Free</li>
+</ul>
+
+</nav>
+
+<section class="hero">
+<h1>Create Viral Content in Seconds</h1>
+<p>Generate titles, captions, hashtags, usernames and memes instantly.</p>
+</section>
+
+<div class="container">
+
+<div class="card">
+<h2>YouTube Title Generator</h2>
+<input id="titleTopic" placeholder="Example: Naruto edit">
+<button onclick="generateTitle()">Generate</button>
+<div class="result" id="titleResult"></div>
+<button class="copyBtn" onclick="copyText('titleResult')">Copy</button>
+</div>
+
+<div class="card">
+<h2>Caption Generator</h2>
+<input id="captionTopic" placeholder="Example: Anime fight">
+<button onclick="generateCaption()">Generate</button>
+<div class="result" id="captionResult"></div>
+<button class="copyBtn" onclick="copyText('captionResult')">Copy</button>
+</div>
+
+<div class="card">
+<h2>Hashtag Generator</h2>
+<input id="hashtagTopic" placeholder="Example: minecraft">
+<button onclick="generateHashtags()">Generate</button>
+<div class="result" id="hashtagResult"></div>
+<button class="copyBtn" onclick="copyText('hashtagResult')">Copy</button>
+</div>
+
+<div class="card">
+<h2>Username Generator</h2>
+<input id="usernameInput" placeholder="Enter name">
+<button onclick="generateUsername()">Generate</button>
+<div class="result" id="usernameResult"></div>
+<button class="copyBtn" onclick="copyText('usernameResult')">Copy</button>
+</div>
+
+<div class="card">
+<h2>Random Meme Generator</h2>
+<button onclick="generateMeme()">Generate Meme</button>
+<div class="memeBox" id="memeBox"></div>
+</div>
+
+</div>
+
+<footer>
+ViralForge • Free Toolkit for Content Creators
+</footer>
+
+<script>
+function random(arr){
+return arr[Math.floor(Math.random()*arr.length)]
+}
+
+function copyText(id){
+let text=document.getElementById(id).innerText
+navigator.clipboard.writeText(text)
+}
+
+function generateTitle(){
+let topic=document.getElementById('titleTopic').value
+let titles=[
+`I Tried ${topic} And This Happened 😱`,
+`Top 5 ${topic} Moments You Missed`,
+`${topic} But It Gets More Insane Every Minute`,
+`The Most Viral ${topic} Ever`,
+`${topic} That Broke The Internet`
+]
+document.getElementById('titleResult').innerText=random(titles)
+}
+
+function generateCaption(){
+let topic=document.getElementById('captionTopic').value
+let captions=[
+`Only real fans understand this ${topic} 🔥`,
+`Spent hours making this ${topic}... worth it?`,
+`This ${topic} moment hits different 😮‍💨`,
+`Editors know the pain behind this ${topic}`
+]
+document.getElementById('captionResult').innerText=random(captions)
+}
+
+function generateHashtags(){
+let topic=document.getElementById('hashtagTopic').value.replace(/ /g,'')
+let tags=`#viral #fyp #shorts #trend #${topic} #edit #creator #youtube #reels`
+document.getElementById('hashtagResult').innerText=tags
+}
+
+function generateUsername(){
+let name=document.getElementById('usernameInput').value
+let names=[
+`${name}X`,
+`${name}YT`,
+`Real${name}`,
+`${name}.exe`,
+`Dark${name}`,
+`${name}404`,
+`OG${name}`
+]
+document.getElementById('usernameResult').innerText=random(names)
+}
+
+function generateMeme(){
+let memes=[
+"https://i.imgflip.com/30b1gx.jpg",
+"https://i.imgflip.com/1bij.jpg",
+"https://i.imgflip.com/26am.jpg",
+"https://i.imgflip.com/9ehk.jpg"
+]
+
+let meme=`<img src="${random(memes)}">`
+document.getElementById('memeBox').innerHTML=meme
+}
+</script>
+
+</body>
+  </html>
+
